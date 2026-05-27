@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PowerUp
   - Enemy
+  - BouncePU
+  - ShootPU
   layers:
   - Default
   - TransparentFX
