@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
     public float speed = 3f;
     private float powerUpStrength = 55f;
     private GameObject focalPoint;
-    public bool hasPowerUp = false;
+    public bool hasBouncePowerUp = false;
+    public bool hasShootPowerUp = false;
     private float powerUpDuration = 5f;
     private float powerUpTimer = 0f;
     public GameObject powerUpIndicator;
+    public GameObject projectilePrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,17 +30,17 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PowerUp"))
+        if (other.CompareTag("BouncePU"))
         {
             Destroy(other.gameObject);
-            hasPowerUp = true;
+            hasBouncePowerUp = true;
             powerUpIndicator.gameObject.SetActive(true);
-            StartCoroutine(PowerUpCountdownRoutine());
+            StartCoroutine(BouncePowerUpCountdownRoutine());
         }
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && hasPowerUp)
+        if (collision.gameObject.CompareTag("Enemy") && hasBouncePowerUp)
         {
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = collision.gameObject.transform.position - transform.position;
@@ -46,10 +48,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator PowerUpCountdownRoutine()
+    IEnumerator BouncePowerUpCountdownRoutine()
     {
         yield return new WaitForSeconds(powerUpDuration);
-        hasPowerUp = false;
+        hasBouncePowerUp = false;
         powerUpIndicator.gameObject.SetActive(false);
     }
 }

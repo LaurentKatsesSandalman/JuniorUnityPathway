@@ -311,7 +311,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724af2c6f80d957478ebcbb9c9df8e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
-  enemyPrefab: {fileID: 3386817249494413118, guid: 7011eb21db028c64db198ae6605536f6, type: 3}
+  enemyPrefab:
+  - {fileID: 3386817249494413118, guid: 7011eb21db028c64db198ae6605536f6, type: 3}
+  - {fileID: 3386817249494413118, guid: bcd9f53c262d1c44ba209bbd9907b09e, type: 3}
   powerupPrefab: {fileID: 5939979671116593591, guid: 6611e2807a449b040987a5533b3b20b5, type: 3}
   maxPowerupCount: 5
 --- !u!4 &626331581

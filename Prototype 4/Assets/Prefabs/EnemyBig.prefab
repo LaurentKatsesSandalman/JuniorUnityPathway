@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1213400790659062068}
   - component: {fileID: 3540177292342461725}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyBig
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.05, y: 0.1, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c97b24d72ebade4d98acaf3b75c90ee, type: 2}
+  - {fileID: 2100000, guid: 49ddfa10488b2cc45b23b699b24f3a8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,7 +122,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3386817249494413118}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -153,4 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0690b595a7b4d1c4fbfe727fbbb4308b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  speed: 1
+  speed: 2

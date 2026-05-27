@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public GameObject powerupPrefab;
+    public GameObject[] enemyPrefab;
+    public GameObject[] powerupPrefab;
     private float spawnRange = 9f;
     private int wave = 1;
     private int currentEnnemyCount;
@@ -31,7 +31,8 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < wave; i++)
         {
-            SpawnPrefab(enemyPrefab);
+            int x = Random.Range(0, enemyPrefab.Length);
+            SpawnPrefab(enemyPrefab[x]);
         }
         currentPowerupCount = GameObject.FindGameObjectsWithTag("PowerUp").Length;
         
@@ -49,7 +50,8 @@ public class SpawnManager : MonoBehaviour
        
         for (int i = 0; i < powerupCount; i++)
         {
-            SpawnPrefab(powerupPrefab);
+            int x = Random.Range(0, powerupPrefab.Length);
+            SpawnPrefab(powerupPrefab[x]);
         }
     }
     void SpawnPrefab(GameObject prefab)
