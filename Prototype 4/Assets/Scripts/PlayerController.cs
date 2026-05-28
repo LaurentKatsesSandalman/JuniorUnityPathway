@@ -6,9 +6,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
     public float speed = 3f;
     private float powerUpStrength = 55f;
+    private float jumpStrength = 10f;
+    private float smashPowerUpStrength = 20f;
     private GameObject focalPoint;
     public bool hasBouncePowerUp = false;
     public bool hasShootPowerUp = false;
+    public bool hasSmashPowerUp = false;
+    public bool isOnGround = true;
+    private bool megaJumpOn=false;
     private float powerUpDuration = 5f;
     private float powerUpTimer = 0f;
     public GameObject powerUpIndicator;
@@ -27,6 +32,10 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         playerRigidbody.AddForce(focalPoint.transform.forward * verticalInput * speed);
         powerUpIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+        if (hasSmashPowerUp && Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            StartCoroutine(MegaJump());
+        }
 
     }
 
@@ -45,6 +54,11 @@ public class PlayerController : MonoBehaviour
             hasShootPowerUp = true;
             StartCoroutine(ShootPowerUpCountdownRoutine());
         }
+        else if (other.CompareTag("SmashPU"))
+        {
+            Destroy(other.gameObject);
+            hasSmashPowerUp = true;
+        }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -53,6 +67,15 @@ public class PlayerController : MonoBehaviour
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayFromPlayer = collision.gameObject.transform.position - transform.position;
             enemyRigidbody.AddForce(awayFromPlayer * powerUpStrength, ForceMode.Impulse);
+        }
+        else if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+            if(megaJumpOn)
+            {
+                SmashThemAll();
+                megaJumpOn = false;
+            }
         }
     }
 
@@ -74,6 +97,18 @@ public class PlayerController : MonoBehaviour
         hasShootPowerUp = false;
     }
 
+    IEnumerator MegaJump()
+    {
+        megaJumpOn = true;
+        playerRigidbody.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.5f);
+        playerRigidbody.angularVelocity = Vector3.zero;
+        playerRigidbody.linearVelocity = Vector3.zero;
+        playerRigidbody.AddForce(Vector3.down * jumpStrength, ForceMode.Impulse);
+        
+        hasSmashPowerUp = false;
+    }
+
     void ShootThemAll()
     {
         currentEnemyList = GameObject.FindGameObjectsWithTag("Enemy");
@@ -85,6 +120,19 @@ public class PlayerController : MonoBehaviour
             Vector3 spawnPosition = transform.position + direction * 1.8f;
             Quaternion rotation = Quaternion.LookRotation(direction);
             Instantiate(projectilePrefab, spawnPosition, rotation);
+        }
+    }
+
+    void SmashThemAll()
+    {
+        currentEnemyList = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < currentEnemyList.Length; i++)
+        {
+            Rigidbody enemyRigidbody = currentEnemyList[i].GetComponent<Rigidbody>();
+            Vector3 awayFromPlayer = (currentEnemyList[i].transform.position - transform.position).normalized;
+            float distance = awayFromPlayer.magnitude;
+            enemyRigidbody.AddForce(awayFromPlayer * 1 / distance * smashPowerUpStrength, ForceMode.Impulse);
+            Debug.Log("Smash hit " + currentEnemyList[i].name + " with force " + (1 / distance * smashPowerUpStrength));
         }
     }
 
