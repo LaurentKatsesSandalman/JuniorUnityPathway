@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentEnnemyCount = FindObjectsByType<EnemyController>().Length;
+        currentEnnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (currentEnnemyCount == 0)
         {
             SpawnEnemyWave(wave);
@@ -29,10 +29,17 @@ public class SpawnManager : MonoBehaviour
     }
     void SpawnEnemyWave(int wave)
     {
-        for (int i = 0; i < wave; i++)
+        if (wave % 1 == 0)
         {
-            int x = Random.Range(0, enemyPrefab.Length);
-            SpawnPrefab(enemyPrefab[x]);
+            SpawnPrefab(enemyPrefab[enemyPrefab.Length - 1]);
+        }
+        else
+        {
+            for (int i = 0; i < wave; i++)
+            {
+                int x = Random.Range(0, enemyPrefab.Length - 1);
+                SpawnPrefab(enemyPrefab[x]);
+            }
         }
         currentPowerupCount = GameObject.FindGameObjectsWithTag("PowerUp").Length;
         

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 3f;
     private float powerUpStrength = 55f;
     private float jumpStrength = 10f;
-    private float smashPowerUpStrength = 20f;
+    private float smashPowerUpStrength = 200f;
     private GameObject focalPoint;
     public bool hasBouncePowerUp = false;
     public bool hasShootPowerUp = false;
@@ -129,9 +129,10 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < currentEnemyList.Length; i++)
         {
             Rigidbody enemyRigidbody = currentEnemyList[i].GetComponent<Rigidbody>();
-            Vector3 awayFromPlayer = (currentEnemyList[i].transform.position - transform.position).normalized;
+            Vector3 awayFromPlayer = (currentEnemyList[i].transform.position - transform.position);
+            Vector3 awayFromPlayerNormalized = awayFromPlayer.normalized;
             float distance = awayFromPlayer.magnitude;
-            enemyRigidbody.AddForce(awayFromPlayer * 1 / distance * smashPowerUpStrength, ForceMode.Impulse);
+            enemyRigidbody.AddForce(awayFromPlayerNormalized * 1 / distance * smashPowerUpStrength, ForceMode.Impulse);
             Debug.Log("Smash hit " + currentEnemyList[i].name + " with force " + (1 / distance * smashPowerUpStrength));
         }
     }

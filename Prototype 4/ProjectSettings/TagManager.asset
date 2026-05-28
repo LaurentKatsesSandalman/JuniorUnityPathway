@@ -9,6 +9,7 @@ TagManager:
   - BouncePU
   - ShootPU
   - SmashPU
+  - Ground
   layers:
   - Default
   - TransparentFX
