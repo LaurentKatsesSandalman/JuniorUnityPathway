@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
     }
     void SpawnEnemyWave(int wave)
     {
-        if (wave % 1 == 0)
+        if (wave % 5 == 0)
         {
             SpawnPrefab(enemyPrefab[enemyPrefab.Length - 1]);
         }
