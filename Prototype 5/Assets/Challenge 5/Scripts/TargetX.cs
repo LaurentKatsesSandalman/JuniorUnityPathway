@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetX : MonoBehaviour
 {
-    private Rigidbody rb;
+    
     private GameManagerX gameManagerX;
     public int pointValue;
     public GameObject explosionFx;
@@ -18,7 +18,7 @@ public class TargetX : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+       
         gameManagerX = GameObject.Find("Game Manager").GetComponent<GameManagerX>();
 
         transform.position = RandomSpawnPosition(); 
@@ -27,8 +27,17 @@ public class TargetX : MonoBehaviour
     }
 
     // When target is clicked, destroy it, update score, and generate explosion
-    private void OnMouseEnter()
+    private void OnMouseDown()
     {
+        if (!gameObject.CompareTag("Bad"))
+        {
+            pointValue = 1;
+        } else
+        {
+            pointValue = -5;
+        }
+        
+        
         if (gameManagerX.isGameActive)
         {
             Destroy(gameObject);
