@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI livesText;
     public GameObject gameOverScreen;
     public GameObject startScreen;
-    private GameObject mainCamera;
-    public Slider soundSlider;
+    public GameObject pauseScreen;
+    private Slider soundSlider;
     private int score;
     private int lives = 3;
     private bool isGameActive=false;
@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+    
     }
 
     // Update is called once per frame
@@ -35,6 +35,26 @@ public class GameManager : MonoBehaviour
             gameOverScreen.gameObject.SetActive(true);
             isGameActive = false;
         }
+        if (Input.GetKeyDown(KeyCode.P)){
+            if (!isGameActive)
+            {
+                isGameActive = true;
+                Time.timeScale = 1.0f;
+                Debug.Log("Is game active: " + isGameActive);
+                pauseScreen.gameObject.SetActive(false);
+            }
+            else
+            {
+                isGameActive = false;
+                Time.timeScale = 0.0f;
+                Debug.Log("Time scale: " + Time.timeScale);
+                pauseScreen.gameObject.SetActive(true);
+            }
+        }
+
+
+
+           
     }
 
     IEnumerator SpawnTarget()
