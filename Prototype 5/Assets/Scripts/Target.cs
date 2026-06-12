@@ -51,7 +51,7 @@ public class Target : MonoBehaviour
             }
             else if (name.StartsWith("Bad"))
             {
-                gameManager.gameOver = true;
+                gameManager.UpdateLives(1);
             }
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
@@ -64,7 +64,6 @@ public class Target : MonoBehaviour
         {
             if(!gameManager.gameOver)
             {
-                Debug.Log(gameManager.gameOver);
                 gameManager.UpdateScore(-pointValue);
             }
         }
