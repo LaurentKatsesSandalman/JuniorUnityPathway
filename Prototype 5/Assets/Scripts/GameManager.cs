@@ -1,8 +1,8 @@
 using NUnit.Framework;
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI livesText;
     public GameObject gameOverScreen;
     public GameObject startScreen;
+    private GameObject mainCamera;
+    public Slider soundSlider;
     private int score;
     private int lives = 3;
     private bool isGameActive=false;
@@ -63,8 +65,13 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        float currentVolume = GameObject.Find("Main Camera").GetComponent<AudioSource>().volume;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         startScreen.gameObject.SetActive(true);
+        soundSlider = GameObject.Find("VolSlider").GetComponent<Slider>();
+        Debug.Log("Current Volume: " + currentVolume);
+        Debug.Log("Sound Slider Volume: " + soundSlider.value);
+        soundSlider.SetValueWithoutNotify(currentVolume);
     }
 
     public void StartGame(int difficulty)
