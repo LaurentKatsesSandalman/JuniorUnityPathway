@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
-    private Vector3 offset = new Vector3(0,6.85f,-9.48f);
+    [SerializeField]  private GameObject player;
+    [SerializeField]  private Vector3 offset = new Vector3(0,6.85f,-9.48f);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
