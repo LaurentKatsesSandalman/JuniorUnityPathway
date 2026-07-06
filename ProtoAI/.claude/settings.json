@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.coplay.dev)",
+      "PowerShell(& \"C:\\\\Users\\\\Utilisateur\\\\.vscode\\\\extensions\\\\anthropic.claude-code-2.1.201-win32-x64\\\\resources\\\\native-binary\\\\claude.exe\" mcp list)",
+      "mcp__coplay-mcp__list_unity_project_roots",
+      "mcp__coplay-mcp__get_unity_editor_state",
+      "mcp__coplay-mcp__create_game_object",
+      "mcp__coplay-mcp__create_material"
+    ]
+  }
+}
